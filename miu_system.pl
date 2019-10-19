@@ -7,7 +7,7 @@ string_to_code("U", 85).
 % Return es la respuesta de un teorema al axioma Axiom. Bit es un bit de control (1 - true, 0 - false).
 check_string_main(Axiom, Bit, Return) :-
     check_code_string(Axiom, CodeAxiom),
-    check_rule1(CodeAxiom, Bit, ReturnCodeTheorem),
+    check_rule2(CodeAxiom, Bit, ReturnCodeTheorem),
     check_string_code(Return, ReturnCodeTheorem).
 
 % check_code_string/2. check_code_string(+String, -Code).
@@ -34,6 +34,13 @@ check_rule1(CodeAxiom, 1, ReturnCodeTheorem) :-
     string_to_code("I", Last),
     create_rule1(CodeAxiom, ReturnCodeTheorem).
 
+% get_last_list/2. get_last_list(+List, -Last).
+% Toma el valor último Last de la lista List.
+% Salida: último elemento de List.
+get_last_list([T | []], T) :- !.
+get_last_list([_ | T], Last) :-
+    get_last_list(T, Last).
+
 % create_rule1/2. create_rule1(+CodeAxiom, -ReturnCodeTheorem).
 % Regresa la respuesta de una regla/teorema.
 % Salida: ej. ReturnCodeTheorem = [73, 73, 73, 85].
@@ -41,9 +48,22 @@ create_rule1([T | []], [T | [85]]).
 create_rule1([H | T], [H | Return]) :-
     create_rule1(T, Return).
 
-% get_last_list/2. get_last_list(+List, -Last).
-% Toma el valor último Last de la lista List.
-% Salida: último elemento de List.
-get_last_list([T | []], T) :- !.
-get_last_list([_ | T], Last) :-
-    get_last_list(T, Last).
+check_rule2(CodeAxiom, 0, []) :-
+    get_first_list(CodeAxiom, H),
+    \+ string_to_code("M", H).
+
+check_rule2(CodeAxiom, 1, ReturnCodeTheorem) :-
+    get_first_list(CodeAxiom, H),
+    string_to_code("M", H),
+    get_rest_list(CodeAxiom, Rest),
+    create_rule2(CodeAxiom, Rest, ReturnCodeTheorem).
+
+get_first_list([H | _], H).
+
+get_rest_list([_ | T], T).
+
+create_rule2([], [], []).
+create_rule2([], [H | T], [H | Return]) :-
+    create_rule2([], T, Return).
+create_rule2([H | T], Rest, [H | Return]) :-
+    create_rule2(T, Rest, Return).

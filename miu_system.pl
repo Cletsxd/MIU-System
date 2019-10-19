@@ -97,8 +97,10 @@ create_rule2([H | T], Rest, [H | Return]) :-
 check_rule3(CodeAxiom, 1, _) :-
     is_theorem3(CodeAxiom).
 
+is_theorem3_v2([], 0).
+
 is_theorem3_v2(_, Cont) :-
-    Cont =:= 3.
+    Cont =:= 3 - 1.
 
 is_theorem3_v2([H | T], Cont) :-
     Cont \== 3,
@@ -114,5 +116,4 @@ is_theorem3_v2([H | T], Cont) :-
 % Busca si CodeAxiom es teorema de la RULE 3. Es decir, que CodeAxiom debe tener 3 Is consecutivas.
 % Las Is se identifican por el número 73.
 is_theorem3(CodeAxiom) :-
-    C is 0,
-    is_theorem3_v2(CodeAxiom, C).
+    is_theorem3_v2(CodeAxiom, 0).

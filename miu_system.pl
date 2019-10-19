@@ -63,7 +63,7 @@ check_rule2(CodeAxiom, 0, []) :-
     get_first_list(CodeAxiom, H),
     \+ string_to_code("M", H).
 % Caso 2: recursivo.
-% Salida: Bit = 1, ReturnCodeTheorem = código ASCII del resultado de la RULE 2. 
+% Salida: Bit = 1, ReturnCodeTheorem = "Mxx". 
 % Si el primer elemento de CodeAxiom es 77.
 check_rule2(CodeAxiom, 1, ReturnCodeTheorem) :-
     get_first_list(CodeAxiom, H),

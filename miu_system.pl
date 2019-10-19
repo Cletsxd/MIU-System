@@ -11,7 +11,7 @@ string_to_code("U", 85).
 % Return es la respuesta de un teorema al axioma Axiom. Bit es un bit de control (1 - true, 0 - false).
 check_string_main(Axiom, Bit, Return) :-
     check_code_string(Axiom, CodeAxiom),
-    check_rule2(CodeAxiom, Bit, ReturnCodeTheorem),
+    check_rule1(CodeAxiom, Bit, ReturnCodeTheorem), % cambiar regla para probar progreso
     check_string_code(Return, ReturnCodeTheorem).
 
 % check_code_string/2. check_code_string(+String, -Code).
@@ -49,7 +49,7 @@ get_last_list([_ | T], Last) :-
 
 % create_rule1/2. create_rule1(+CodeAxiom, -ReturnCodeTheorem).
 % Regresa la respuesta de una regla/teorema.
-% Salida: ej. ReturnCodeTheorem = [73, 73, 73, 85].
+% Salida: ej. CodeAxiom = [73, 73, 73], ReturnCodeTheorem = [73, 73, 73, 85].
 create_rule1([T | []], [T | [85]]).
 create_rule1([H | T], [H | Return]) :-
     create_rule1(T, Return).

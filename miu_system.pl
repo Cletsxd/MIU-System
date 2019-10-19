@@ -20,11 +20,11 @@ check_code_string(String, Code) :-
 check_string_code(String, Code) :-
     string_codes(String, Code).
 
-% check_rule1/3. check_rule1(+CodeAxiom, 0, _).
+% check_rule1/3. check_rule1(+CodeAxiom, 0, []).
 % Toma un axioma en código ASCII en la lista CodeAxiom.
 % Caso 1: base. 
 % Salida: Bit = 0 si el último elemento de CodeAxiom no es 73 (checar string_to_code/2).
-check_rule1(CodeAxiom, 0, _) :-
+check_rule1(CodeAxiom, 0, []) :-
     get_last_list(CodeAxiom, Last),
     \+ string_to_code("I", Last).
 % Caso 2: recursivo. Si el último elemento de CodeAxiom es 73 (checar string_to_code/2).

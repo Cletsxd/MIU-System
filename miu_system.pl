@@ -7,7 +7,6 @@ string_to_code("U", 85).
 % Return es la respuesta de un teorema al axioma Axiom. Bit es un bit de control (1 - true, 0 - false).
 check_string_main(Axiom, Bit, Return) :-
     check_code_string(Axiom, CodeAxiom),
-    write(CodeAxiom),
     check_rule1(CodeAxiom, Bit, ReturnCodeTheorem),
     check_string_code(Return, ReturnCodeTheorem).
 

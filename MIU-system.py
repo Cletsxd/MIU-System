@@ -160,5 +160,8 @@ if __name__ == '__main__':
         iters += 1
         print("Iter", iters)
         wrd, rule, bit = check_mu(list_words)
+        if iters == 10 :
+            print('MU was not found in the 10th depth')
+            break
 
     print("-> Word:", wrd, "Rule:", rule, "Depth:", iters)

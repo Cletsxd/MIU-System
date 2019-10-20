@@ -58,6 +58,43 @@ def search_rules(words):
 
     if len(words) < 2:
         wr1, check1 = rule1(words[0][0])
+        wr2, check2 = rule2(wr1)
+        wr3, check3 = rule3(wr2)
+        wrfinal, check4 = rule4(wr3)
+
+        if check1 == 1 and wr1 != "M":
+            ret.append([wr1, 1])
+
+        if check2 == 1 and wr2 != "M":
+            ret.append([wr2, 2])
+
+        if check3 == 1 and wr3 != "M":
+            ret.append([wr3, 3])
+
+        if check4 == 1 and wrfinal != "M":
+            ret.append([wrfinal, 4])
+
+    else:
+        for word in words:
+            wr1, check1 = rule1(word[0])
+            wr2, check2 = rule2(wr1)
+            wr3, check3 = rule3(wr2)
+            wrfinal, check4 = rule4(wr3)
+
+            if check1 == 1 and wr1 != "M":
+                ret.append([wr1, 1])
+
+            if check2 == 1 and wr2 != "M":
+                ret.append([wr2, 2])
+
+            if check3 == 1 and wr3 != "M":
+                ret.append([wr3, 3])
+
+            if check4 == 1 and wrfinal != "M":
+                ret.append([wrfinal, 4])
+
+    if len(words) < 2:
+        wr1, check1 = rule1(words[0][0])
         wr2, check2 = rule2(words[0][0])
         wr3, check3 = rule3(words[0][0])
         wr4, check4 = rule4(words[0][0])
@@ -97,9 +134,9 @@ def search_rules(words):
 def check_mu(words):
     for word in words:
         if word[0] == "MU":
-            return 1, word
+            return word[0], word[1], True
 
-    return 0, []
+    return 0, 0, False
 
 if __name__ == '__main__':
     word = input('Enter the word: ')
@@ -109,12 +146,19 @@ if __name__ == '__main__':
 
     list_words = []
     list_words = search_rules(first_attp)
+    print("Iter 1")
 
-    print("Depth 1")
-    cont_prof = 2
-    while check_mu(list_words)[0] == 0:
-        print("Depth", cont_prof)
+    wrd = ""
+    rule = 0
+    bit = False
+
+    iters = 1
+    wrd, rule, bit = check_mu(list_words)
+
+    while not bit:
         list_words = search_rules(list_words)
-        cont_prof += 1
+        iters += 1
+        print("Iter", iters)
+        wrd, rule, bit = check_mu(list_words)
 
-    print("Word:", check_mu(list_words)[1][0], "Depth:", cont_prof - 1, "Rule:",check_mu(list_words)[1][1])
+    print("-> Word:", wrd, "Rule:", rule, "Depth:", iters)

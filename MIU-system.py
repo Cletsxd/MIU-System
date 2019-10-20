@@ -110,8 +110,10 @@ if __name__ == '__main__':
     list_words = []
     list_words = search_rules(first_attp)
 
+    print("Depth 1")
     cont_prof = 2
     while check_mu(list_words)[0] == 0:
+        print("Depth", cont_prof)
         list_words = search_rules(list_words)
         cont_prof += 1
 
